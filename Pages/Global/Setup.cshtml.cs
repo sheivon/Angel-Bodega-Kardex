@@ -386,6 +386,8 @@ namespace kardex_Web.Pages.Global
             }
         }
 
+        public sealed record TableInfo(string Name, bool Exists, string Message);
+
         public sealed record SetupResult(string EntityName, bool Success, string Message);
     }
 }
