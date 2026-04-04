@@ -1,0 +1,75 @@
+@page "{id?}"
+@model kardex_Web.Pages.Global.PeriodoModel
+@{
+    ViewData["Title"] = "Periodo";
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <h2>Gestión de Periodos</h2>
+        @if (!string.IsNullOrEmpty(Model.StatusMessage))
+        {
+            <div class="alert alert-success" role="alert">
+                @Model.StatusMessage
+            </div>
+        }
+    </div>
+</div>
+
+<div class="row mb-4">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">Crear / Editar periodo</div>
+            <div class="card-body">
+                <form method="post" asp-page-handler="Save">
+                    <input asp-for="Input.Id" type="hidden" />
+
+                    <div class="mb-3">
+                        <label asp-for="Input.Anio" class="form-label">Año</label>
+                        <input asp-for="Input.Anio" class="form-control" type="number" />
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Guardar</button>
+                    @if (Model.Input.Id > 0)
+                    {
+                        <a asp-page="/Global/Periodo" class="btn btn-secondary ms-2">Cancelar</a>
+                    }
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">Listado de periodos</div>
+            <div class="card-body p-0">
+                <table class="table table-striped mb-0">
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Año</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.Periodos)
+                        {
+                            <tr>
+                                <td>@item.Id</td>
+                                <td>@item.Anio</td>
+                                <td>
+                                    <a asp-page="/Global/Periodo" asp-route-id="@item.Id" class="btn btn-sm btn-outline-primary me-2">Editar</a>
+                                    <form method="post" asp-page-handler="Delete" asp-route-id="@item.Id" class="d-inline" onsubmit="return confirm('¿Eliminar este periodo?');">
+                                        <button type="submit" class="btn btn-sm btn-outline-danger">Eliminar</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

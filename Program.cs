@@ -8,6 +8,7 @@ builder.Configuration.AddXmlFile("web.config", optional: true, reloadOnChange: t
 builder.Services.AddRazorPages();
 builder.Services.AddControllers();
 builder.Services.AddTransient<kardex_Web.Services.UsuarioService>();
+builder.Services.AddTransient<kardex_Web.Services.PeriodoService>();
 builder.Services.AddTransient<kardex_Web.Services.UnidadMedidaService>();
 builder.Services.AddTransient<kardex_Web.Services.AutorizaService>();
 builder.Services.AddTransient<kardex_Web.Services.CategoriaService>();
@@ -15,6 +16,7 @@ builder.Services.AddTransient<kardex_Web.Services.AreaTrabajoService>();
 builder.Services.AddTransient<kardex_Web.Services.ProveedorService>();
 builder.Services.AddTransient<kardex_Web.Services.ProyectoService>();
 builder.Services.AddTransient<kardex_Web.Services.RetiraService>();
+builder.Services.AddTransient<kardex_Web.Services.AsignarService>();
 builder.Services.AddTransient<kardex_Web.Services.SalidaService>();
 builder.Services.AddTransient<kardex_Web.Services.OrdenCompraService>();
 builder.Services.AddTransient<kardex_Web.Services.ProductoService>();

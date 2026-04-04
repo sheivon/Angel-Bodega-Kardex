@@ -18,8 +18,10 @@ namespace kardex_Web.Pages.Global
         private readonly ProductoService _productoService;
         private readonly EntradaService _entradaService;
         private readonly MovimientoService _movimientoService;
+        private readonly PeriodoService _periodoService;
+        private readonly AsignarService _asignarService;
 
-        public SetupModel(UsuarioService usuarioService, UnidadMedidaService unidadMedidaService, AutorizaService autorizaService, CategoriaService categoriaService, AreaTrabajoService areaTrabajoService, ProveedorService proveedorService, ProyectoService proyectoService, RetiraService retiraService, SalidaService salidaService, OrdenCompraService ordenCompraService, ProductoService productoService, EntradaService entradaService, MovimientoService movimientoService)
+        public SetupModel(UsuarioService usuarioService, UnidadMedidaService unidadMedidaService, AutorizaService autorizaService, CategoriaService categoriaService, AreaTrabajoService areaTrabajoService, ProveedorService proveedorService, ProyectoService proyectoService, RetiraService retiraService, SalidaService salidaService, OrdenCompraService ordenCompraService, ProductoService productoService, EntradaService entradaService, MovimientoService movimientoService, PeriodoService periodoService, AsignarService asignarService)
         {
             _usuarioService = usuarioService;
             _unidadMedidaService = unidadMedidaService;
@@ -34,6 +36,8 @@ namespace kardex_Web.Pages.Global
             _productoService = productoService;
             _entradaService = entradaService;
             _movimientoService = movimientoService;
+            _periodoService = periodoService;
+            _asignarService = asignarService;
         }
 
         public List<SetupResult> Results { get; set; } = new();
@@ -53,8 +57,9 @@ namespace kardex_Web.Pages.Global
                 await RunSetupAsync("Área de Trabajo", _areaTrabajoService.EnsureTableExistsAsync),
                 await RunSetupAsync("Proveedor", _proveedorService.EnsureTableExistsAsync),
                 await RunSetupAsync("Proyecto", _proyectoService.EnsureTableExistsAsync),
+                await RunSetupAsync("Periodo", _periodoService.EnsureTableExistsAsync),
+                await RunSetupAsync("Asignar", _asignarService.EnsureTableExistsAsync),
                 await RunSetupAsync("Retira", _retiraService.EnsureTableExistsAsync),
-                await RunSetupAsync("Salida", _salidaService.EnsureTableExistsAsync),
                 await RunSetupAsync("Orden de Compra", _ordenCompraService.EnsureTableExistsAsync),
                 await RunSetupAsync("Productos", _productoService.EnsureTableExistsAsync),
                 await RunSetupAsync("Entrada", _entradaService.EnsureTableExistsAsync),
@@ -115,6 +120,22 @@ namespace kardex_Web.Pages.Global
             Results = new List<SetupResult>
             {
                 await RunSetupAsync("Proyecto", _proyectoService.EnsureTableExistsAsync)
+            };
+        }
+
+        public async Task OnPostPeriodoAsync()
+        {
+            Results = new List<SetupResult>
+            {
+                await RunSetupAsync("Periodo", _periodoService.EnsureTableExistsAsync)
+            };
+        }
+
+        public async Task OnPostAsignarAsync()
+        {
+            Results = new List<SetupResult>
+            {
+                await RunSetupAsync("Asignar", _asignarService.EnsureTableExistsAsync)
             };
         }
 
