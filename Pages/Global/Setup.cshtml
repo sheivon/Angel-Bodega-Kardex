@@ -7,72 +7,167 @@
 <div class="row">
     <div class="col-md-12">
         <h2>Setup de Entidades</h2>
-        <p>Esta página crea o verifica las tablas necesarias para todas las entidades actuales y futuras.</p>
+        <p>Esta página crea o verifica las tablas necesarias para todas las entidades actuales y futuras. También permite editar la cadena de conexión MySql, crear la base de datos y revisar las tablas existentes.</p>
+    </div>
+</div>
 
-        @if (Model.Results.Any())
-        {
-            <div class="mb-3">
-                <h4>Resultado</h4>
-                <ul class="list-group">
-                    @foreach (var result in Model.Results)
-                    {
-                        <li class="list-group-item @(result.Success ? "list-group-item-success" : "list-group-item-danger")">
-                            <strong>@result.EntityName:</strong> @result.Message
-                        </li>
-                    }
-                </ul>
+<div class="row mb-4">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">Cadena de conexión MySql</div>
+            <div class="card-body">
+                <form method="post" asp-page-handler="SaveConnectionString" class="mb-3">
+                    <div class="mb-3">
+                        <label asp-for="ConnectionString" class="form-label">Cadena de conexión</label>
+                        <textarea asp-for="ConnectionString" class="form-control" rows="4"></textarea>
+                        <span asp-validation-for="ConnectionString" class="text-danger"></span>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Guardar cadena</button>
+                </form>
+
+                <div class="d-flex flex-wrap gap-2 mb-3">
+                    <form method="post" asp-page-handler="CreateDatabase" class="me-2">
+                        <button type="submit" class="btn btn-success">Crear base de datos</button>
+                    </form>
+                    <form method="post" asp-page-handler="RefreshTables" class="me-2">
+                        <button type="submit" class="btn btn-secondary">Ver tablas</button>
+                    </form>
+                    <form method="post" asp-page-handler="All">
+                        <button type="submit" class="btn btn-warning">Setup All Entities</button>
+                    </form>
+                </div>
+
+                @if (!string.IsNullOrEmpty(Model.CurrentDatabase))
+                {
+                    <div class="mb-2">
+                        <strong>Base de datos actual:</strong> @Model.CurrentDatabase
+                    </div>
+                }
+                @if (!string.IsNullOrEmpty(Model.ConnectionStringMessage))
+                {
+                    <div class="alert alert-success">@Model.ConnectionStringMessage</div>
+                }
+                @if (!string.IsNullOrEmpty(Model.DatabaseMessage))
+                {
+                    <div class="alert alert-info">@Model.DatabaseMessage</div>
+                }
             </div>
-        }
+        </div>
+    </div>
+</div>
 
-        <div class="d-flex flex-wrap gap-2 mb-4">
-            <form method="post" asp-page-handler="All">
-                <button type="submit" class="btn btn-primary">Setup All Entities</button>
-            </form>
-            <form method="post" asp-page-handler="Usuarios">
-                <button type="submit" class="btn btn-secondary">Setup Usuarios</button>
-            </form>
-            <form method="post" asp-page-handler="UnidadMedida">
-                <button type="submit" class="btn btn-secondary">Setup Unidad de Medida</button>
-            </form>
-            <form method="post" asp-page-handler="Autoriza">
-                <button type="submit" class="btn btn-secondary">Setup Autoriza</button>
-            </form>
-            <form method="post" asp-page-handler="Categoria">
-                <button type="submit" class="btn btn-secondary">Setup Categoría</button>
-            </form>
-            <form method="post" asp-page-handler="AreaTrabajo">
-                <button type="submit" class="btn btn-secondary">Setup Área de Trabajo</button>
-            </form>
-            <form method="post" asp-page-handler="Proveedor">
-                <button type="submit" class="btn btn-secondary">Setup Proveedor</button>
-            </form>
-            <form method="post" asp-page-handler="Proyecto">
-                <button type="submit" class="btn btn-secondary">Setup Proyecto</button>
-            </form>
-            <form method="post" asp-page-handler="Periodo">
-                <button type="submit" class="btn btn-secondary">Setup Periodo</button>
-            </form>
-            <form method="post" asp-page-handler="Asignar">
-                <button type="submit" class="btn btn-secondary">Setup Asignar</button>
-            </form>
-            <form method="post" asp-page-handler="Retira">
-                <button type="submit" class="btn btn-secondary">Setup Retira</button>
-            </form>
-            <form method="post" asp-page-handler="Salida">
-                <button type="submit" class="btn btn-secondary">Setup Salida</button>
-            </form>
-            <form method="post" asp-page-handler="OrdenCompra">
-                <button type="submit" class="btn btn-secondary">Setup Orden de Compra</button>
-            </form>
-            <form method="post" asp-page-handler="Producto">
-                <button type="submit" class="btn btn-secondary">Setup Productos</button>
-            </form>
-            <form method="post" asp-page-handler="Entrada">
-                <button type="submit" class="btn btn-secondary">Setup Entrada</button>
-            </form>
-            <form method="post" asp-page-handler="Movimientos">
-                <button type="submit" class="btn btn-secondary">Setup Movimientos</button>
-            </form>
+<div class="row mb-4">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">Tablas en la base de datos</div>
+            <div class="card-body p-0">
+                <table class="table table-striped datatable mb-0">
+                    <thead>
+                        <tr>
+                            <th>Tabla</th>
+                            <th>Estado</th>
+                            <th>Mensaje</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (!Model.Tables.Any())
+                        {
+                            <tr>
+                                <td colspan="3">No hay tablas disponibles. Presione "Ver tablas" para cargar la lista.</td>
+                            </tr>
+                        }
+                        else
+                        {
+                            foreach (var table in Model.Tables)
+                            {
+                                <tr>
+                                    <td>@table.Name</td>
+                                    <td>@(table.Exists ? "Existe" : "No existe")</td>
+                                    <td>@table.Message</td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+@if (Model.Results.Any())
+{
+    <div class="row mb-4">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">Resultado de setup</div>
+                <div class="card-body">
+                    <ul class="list-group">
+                        @foreach (var result in Model.Results)
+                        {
+                            <li class="list-group-item @(result.Success ? "list-group-item-success" : "list-group-item-danger")">
+                                <strong>@result.EntityName:</strong> @result.Message
+                            </li>
+                        }
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">Setup de tablas individuales</div>
+            <div class="card-body">
+                <div class="d-flex flex-wrap gap-2">
+                    <form method="post" asp-page-handler="Usuarios">
+                        <button type="submit" class="btn btn-secondary">Setup Usuarios</button>
+                    </form>
+                    <form method="post" asp-page-handler="UnidadMedida">
+                        <button type="submit" class="btn btn-secondary">Setup Unidad de Medida</button>
+                    </form>
+                    <form method="post" asp-page-handler="Autoriza">
+                        <button type="submit" class="btn btn-secondary">Setup Autoriza</button>
+                    </form>
+                    <form method="post" asp-page-handler="Categoria">
+                        <button type="submit" class="btn btn-secondary">Setup Categoría</button>
+                    </form>
+                    <form method="post" asp-page-handler="AreaTrabajo">
+                        <button type="submit" class="btn btn-secondary">Setup Área de Trabajo</button>
+                    </form>
+                    <form method="post" asp-page-handler="Proveedor">
+                        <button type="submit" class="btn btn-secondary">Setup Proveedor</button>
+                    </form>
+                    <form method="post" asp-page-handler="Proyecto">
+                        <button type="submit" class="btn btn-secondary">Setup Proyecto</button>
+                    </form>
+                    <form method="post" asp-page-handler="Periodo">
+                        <button type="submit" class="btn btn-secondary">Setup Periodo</button>
+                    </form>
+                    <form method="post" asp-page-handler="Asignar">
+                        <button type="submit" class="btn btn-secondary">Setup Asignar</button>
+                    </form>
+                    <form method="post" asp-page-handler="Retira">
+                        <button type="submit" class="btn btn-secondary">Setup Retira</button>
+                    </form>
+                    <form method="post" asp-page-handler="Salida">
+                        <button type="submit" class="btn btn-secondary">Setup Salida</button>
+                    </form>
+                    <form method="post" asp-page-handler="OrdenCompra">
+                        <button type="submit" class="btn btn-secondary">Setup Orden de Compra</button>
+                    </form>
+                    <form method="post" asp-page-handler="Producto">
+                        <button type="submit" class="btn btn-secondary">Setup Productos</button>
+                    </form>
+                    <form method="post" asp-page-handler="Entrada">
+                        <button type="submit" class="btn btn-secondary">Setup Entrada</button>
+                    </form>
+                    <form method="post" asp-page-handler="Movimientos">
+                        <button type="submit" class="btn btn-secondary">Setup Movimientos</button>
+                    </form>
+                </div>
+            </div>
         </div>
     </div>
 </div>

@@ -47,4 +47,18 @@ $(function () {
     $('#configGuardar').on('click', function () {
         saveGeneralConfig();
     });
+
+    $('.datatable').each(function () {
+        if (!$.fn.DataTable.isDataTable(this)) {
+            $(this).DataTable({
+                language: {
+                    url: '/lib/datatables/i18n/Spanish.json'
+                },
+                responsive: true,
+                order: [],
+                pageLength: 10,
+                lengthMenu: [5, 10, 25, 50, 100]
+            });
+        }
+    });
 });

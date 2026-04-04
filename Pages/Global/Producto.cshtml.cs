@@ -8,13 +8,16 @@ namespace kardex_Web.Pages.Global
     public class ProductoModel : PageModel
     {
         private readonly ProductoService _service;
+        private readonly UnidadMedidaService _unidadMedidaService;
 
-        public ProductoModel(ProductoService service)
+        public ProductoModel(ProductoService service, UnidadMedidaService unidadMedidaService)
         {
             _service = service;
+            _unidadMedidaService = unidadMedidaService;
         }
 
         public IList<Producto> Productos { get; private set; } = new List<Producto>();
+        public IList<UnidadMedida> UnidadMedidas { get; private set; } = new List<UnidadMedida>();
 
         [BindProperty]
         public Producto Input { get; set; } = new Producto();
@@ -34,6 +37,7 @@ namespace kardex_Web.Pages.Global
             }
 
             Productos = (await _service.GetAllAsync()).ToList();
+            UnidadMedidas = (await _unidadMedidaService.GetAllAsync()).ToList();
         }
 
         public async Task<IActionResult> OnPostSaveAsync()
@@ -41,6 +45,7 @@ namespace kardex_Web.Pages.Global
             if (!ModelState.IsValid)
             {
                 Productos = (await _service.GetAllAsync()).ToList();
+                UnidadMedidas = (await _unidadMedidaService.GetAllAsync()).ToList();
                 return Page();
             }
 

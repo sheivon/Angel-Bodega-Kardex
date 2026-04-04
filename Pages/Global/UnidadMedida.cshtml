@@ -45,7 +45,7 @@
         <div class="card">
             <div class="card-header">Listado de unidades de medida</div>
             <div class="card-body p-0">
-                <table class="table table-striped mb-0">
+                <table class="table table-striped datatable mb-0">
                     <thead>
                         <tr>
                             <th>Id</th>
@@ -60,10 +60,12 @@
                                 <td>@item.Id</td>
                                 <td>@item.Nombre</td>
                                 <td>
-                                    <a asp-page="/Global/UnidadMedida" asp-route-id="@item.Id" class="btn btn-sm btn-outline-primary me-2">Editar</a>
-                                    <form method="post" asp-page-handler="Delete" asp-route-id="@item.Id" class="d-inline" onsubmit="return confirm('¿Eliminar esta unidad de medida?');">
-                                        <button type="submit" class="btn btn-sm btn-outline-danger">Eliminar</button>
-                                    </form>
+                                    <div class="d-flex content-align-center">
+                                        <a asp-page="/Global/UnidadMedida" asp-route-id="@item.Id" class="btn btn-sm btn-outline-primary me-2">Editar</a>
+                                        <form method="post" asp-page-handler="Delete" asp-route-id="@item.Id" class="d-inline" onsubmit="return confirm('¿Eliminar esta unidad de medida?');">
+                                            <button type="submit" class="btn btn-sm btn-outline-danger">Eliminar</button>
+                                        </form> 
+                                    </div>
                                 </td>
                             </tr>
                         }
