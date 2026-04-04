@@ -29,6 +29,9 @@ namespace kardex_Web.Services
   PRIMARY KEY (Id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;";
             await command.ExecuteNonQueryAsync();
+
+            command.CommandText = @"ALTER TABLE proyecto ADD COLUMN IF NOT EXISTS Eliminado TINYINT(1) NOT NULL DEFAULT 0;";
+            await command.ExecuteNonQueryAsync();
         }
 
         public async Task<IReadOnlyList<Proyecto>> GetAllAsync()
