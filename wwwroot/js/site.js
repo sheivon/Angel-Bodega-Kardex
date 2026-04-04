@@ -39,6 +39,39 @@ function saveGeneralConfig() {
     });
 }
 
+function printHtmlContent(html, title) {
+    var form = document.createElement('form');
+    form.method = 'post';
+    form.action = '/print/html';
+    form.target = '_blank';
+
+    var inputHtml = document.createElement('textarea');
+    inputHtml.name = 'Html';
+    inputHtml.style.display = 'none';
+    inputHtml.value = html;
+    form.appendChild(inputHtml);
+
+    var inputTitle = document.createElement('input');
+    inputTitle.type = 'hidden';
+    inputTitle.name = 'Title';
+    inputTitle.value = title || 'Imprimir';
+    form.appendChild(inputTitle);
+
+    document.body.appendChild(form);
+    form.submit();
+    document.body.removeChild(form);
+}
+
+function printTable(selector, title) {
+    var table = document.querySelector(selector);
+    if (!table) {
+        swal('Error', 'No se encontró la tabla para imprimir.', 'error');
+        return;
+    }
+
+    printHtmlContent(table.outerHTML, title || 'Imprimir');
+}
+
 $(function () {
     $('#configModal').on('show.bs.modal', function () {
         loadGeneralConfig();
