@@ -1,0 +1,82 @@
+@page "{id?}"
+@model kardex_Web.Pages.Global.AutorizaModel
+@{
+    ViewData["Title"] = "Autoriza";
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <h2>Gestión de Autoriza</h2>
+        @if (!string.IsNullOrEmpty(Model.StatusMessage))
+        {
+            <div class="alert alert-success" role="alert">
+                @Model.StatusMessage
+            </div>
+        }
+    </div>
+</div>
+
+<div class="row mb-4">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">Crear / Editar autorizador</div>
+            <div class="card-body">
+                <form method="post" asp-page-handler="Save">
+                    <input asp-for="Input.Id" type="hidden" />
+
+                    <div class="mb-3">
+                        <label asp-for="Input.Cargo" class="form-label">Cargo</label>
+                        <input asp-for="Input.Cargo" class="form-control" />
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="Input.NombresApellidos" class="form-label">Nombres y Apellidos</label>
+                        <input asp-for="Input.NombresApellidos" class="form-control" />
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Guardar</button>
+                    @if (Model.Input.Id > 0)
+                    {
+                        <a asp-page="/Global/Autoriza" class="btn btn-secondary ms-2">Cancelar</a>
+                    }
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">Listado de autorizadores</div>
+            <div class="card-body p-0">
+                <table class="table table-striped mb-0">
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Cargo</th>
+                            <th>Nombres y Apellidos</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.Autorizadores)
+                        {
+                            <tr>
+                                <td>@item.Id</td>
+                                <td>@item.Cargo</td>
+                                <td>@item.NombresApellidos</td>
+                                <td>
+                                    <a asp-page="/Global/Autoriza" asp-route-id="@item.Id" class="btn btn-sm btn-outline-primary me-2">Editar</a>
+                                    <form method="post" asp-page-handler="Delete" asp-route-id="@item.Id" class="d-inline" onsubmit="return confirm('¿Eliminar este autorizador?');">
+                                        <button type="submit" class="btn btn-sm btn-outline-danger">Eliminar</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

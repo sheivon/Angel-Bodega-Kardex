@@ -1,0 +1,72 @@
+@page
+@model kardex_Web.Pages.Global.SetupModel
+@{
+    ViewData["Title"] = "Setup General";
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <h2>Setup de Entidades</h2>
+        <p>Esta página crea o verifica las tablas necesarias para todas las entidades actuales y futuras.</p>
+
+        @if (Model.Results.Any())
+        {
+            <div class="mb-3">
+                <h4>Resultado</h4>
+                <ul class="list-group">
+                    @foreach (var result in Model.Results)
+                    {
+                        <li class="list-group-item @(result.Success ? "list-group-item-success" : "list-group-item-danger")">
+                            <strong>@result.EntityName:</strong> @result.Message
+                        </li>
+                    }
+                </ul>
+            </div>
+        }
+
+        <div class="d-flex flex-wrap gap-2 mb-4">
+            <form method="post" asp-page-handler="All">
+                <button type="submit" class="btn btn-primary">Setup All Entities</button>
+            </form>
+            <form method="post" asp-page-handler="Usuarios">
+                <button type="submit" class="btn btn-secondary">Setup Usuarios</button>
+            </form>
+            <form method="post" asp-page-handler="UnidadMedida">
+                <button type="submit" class="btn btn-secondary">Setup Unidad de Medida</button>
+            </form>
+            <form method="post" asp-page-handler="Autoriza">
+                <button type="submit" class="btn btn-secondary">Setup Autoriza</button>
+            </form>
+            <form method="post" asp-page-handler="Categoria">
+                <button type="submit" class="btn btn-secondary">Setup Categoría</button>
+            </form>
+            <form method="post" asp-page-handler="AreaTrabajo">
+                <button type="submit" class="btn btn-secondary">Setup Área de Trabajo</button>
+            </form>
+            <form method="post" asp-page-handler="Proveedor">
+                <button type="submit" class="btn btn-secondary">Setup Proveedor</button>
+            </form>
+            <form method="post" asp-page-handler="Proyecto">
+                <button type="submit" class="btn btn-secondary">Setup Proyecto</button>
+            </form>
+            <form method="post" asp-page-handler="Retira">
+                <button type="submit" class="btn btn-secondary">Setup Retira</button>
+            </form>
+            <form method="post" asp-page-handler="Salida">
+                <button type="submit" class="btn btn-secondary">Setup Salida</button>
+            </form>
+            <form method="post" asp-page-handler="OrdenCompra">
+                <button type="submit" class="btn btn-secondary">Setup Orden de Compra</button>
+            </form>
+            <form method="post" asp-page-handler="Producto">
+                <button type="submit" class="btn btn-secondary">Setup Productos</button>
+            </form>
+            <form method="post" asp-page-handler="Entrada">
+                <button type="submit" class="btn btn-secondary">Setup Entrada</button>
+            </form>
+            <form method="post" asp-page-handler="Movimientos">
+                <button type="submit" class="btn btn-secondary">Setup Movimientos</button>
+            </form>
+        </div>
+    </div>
+</div>

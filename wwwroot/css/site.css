@@ -1,0 +1,109 @@
+html, body {
+    height: 100%;
+    margin: 0;
+}
+
+html {
+    font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  margin-bottom: 60px;
+}
+
+.form-floating > .form-control-plaintext::placeholder, .form-floating > .form-control::placeholder {
+  color: var(--bs-secondary-color);
+  text-align: end;
+}
+
+.form-floating > .form-control-plaintext:focus::placeholder, .form-floating > .form-control:focus::placeholder {
+  text-align: start;
+}
+ 
+.nav-link {
+    color: #333;
+}
+
+    .nav-link:hover {
+        background: #f0f0f0;
+        border-radius: 5px;
+    }
+ 
+
+.dropdown-item:hover {
+    background-color: #e9ecef;
+}
+/* Parent dropdown hover */
+.navbar .dropdown:hover > .dropdown-menu {
+    display: block;
+}
+
+/* Submenu container */
+.dropdown-submenu {
+    position: relative;
+}
+
+    /* Submenu hidden by default */
+    .dropdown-submenu .dropdown-menu {
+        display: none;
+        position: absolute;
+        top: 0;
+        left: 100%;
+        margin-top: 0;
+        margin-left: 0;
+    }
+
+    /* Show submenu on hover */
+    .dropdown-submenu:hover > .dropdown-menu {
+        display: block;
+    }
+
+/* Fix hover gap issue */
+.dropdown-menu {
+    margin-top: 0;
+}
+
+/* Better UX */
+.dropdown-item {
+    white-space: nowrap;
+}
+
+
+
+/*
+    WETERMARK AREA
+*/
+.main-watermark {
+    position: relative;
+}
+
+    .main-watermark::before {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 200px;
+        height: 200px;
+        background-image: url('/img/Alcaldia.png'); /* change path */
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+        transform: translate(-50%, -50%);
+        opacity: 0.1; /* adjust transparency */
+        pointer-events: none; /* allow clicks through */
+    }

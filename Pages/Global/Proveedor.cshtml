@@ -1,0 +1,89 @@
+@page "{id?}"
+@model kardex_Web.Pages.Global.ProveedorModel
+@{
+    ViewData["Title"] = "Proveedor";
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <h2>Gestión de Proveedores</h2>
+        @if (!string.IsNullOrEmpty(Model.StatusMessage))
+        {
+            <div class="alert alert-success" role="alert">
+                @Model.StatusMessage
+            </div>
+        }
+    </div>
+</div>
+
+<div class="row mb-4">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">Crear / Editar proveedor</div>
+            <div class="card-body">
+                <form method="post" asp-page-handler="Save">
+                    <input asp-for="Input.Id" type="hidden" />
+
+                    <div class="mb-3">
+                        <label asp-for="Input.Nombre" class="form-label">Nombre</label>
+                        <input asp-for="Input.Nombre" class="form-control" />
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="Input.Telefono" class="form-label">Teléfono</label>
+                        <input asp-for="Input.Telefono" class="form-control" type="number" />
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="Input.Direccion" class="form-label">Dirección</label>
+                        <input asp-for="Input.Direccion" class="form-control" />
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Guardar</button>
+                    @if (Model.Input.Id > 0)
+                    {
+                        <a asp-page="/Global/Proveedor" class="btn btn-secondary ms-2">Cancelar</a>
+                    }
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">Listado de proveedores</div>
+            <div class="card-body p-0">
+                <table class="table table-striped mb-0">
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Nombre</th>
+                            <th>Teléfono</th>
+                            <th>Dirección</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.Proveedores)
+                        {
+                            <tr>
+                                <td>@item.Id</td>
+                                <td>@item.Nombre</td>
+                                <td>@item.Telefono</td>
+                                <td>@item.Direccion</td>
+                                <td>
+                                    <a asp-page="/Global/Proveedor" asp-route-id="@item.Id" class="btn btn-sm btn-outline-primary me-2">Editar</a>
+                                    <form method="post" asp-page-handler="Delete" asp-route-id="@item.Id" class="d-inline" onsubmit="return confirm('¿Eliminar este proveedor?');">
+                                        <button type="submit" class="btn btn-sm btn-outline-danger">Eliminar</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

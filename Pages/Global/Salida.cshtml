@@ -1,0 +1,117 @@
+@page "{id?}"
+@model kardex_Web.Pages.Global.SalidaModel
+@{
+    ViewData["Title"] = "Salida";
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <h2>Gestión de Salidas</h2>
+        @if (!string.IsNullOrEmpty(Model.StatusMessage))
+        {
+            <div class="alert alert-success" role="alert">
+                @Model.StatusMessage
+            </div>
+        }
+    </div>
+</div>
+
+<div class="row mb-4">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header">Crear / Editar salida</div>
+            <div class="card-body">
+                <form method="post" asp-page-handler="Save">
+                    <input asp-for="Input.Id" type="hidden" />
+
+                    <div class="row gy-3">
+                        <div class="col-md-4">
+                            <label asp-for="Input.NumeroS" class="form-label">Número S</label>
+                            <input asp-for="Input.NumeroS" class="form-control" type="number" />
+                        </div>
+                        <div class="col-md-4">
+                            <label asp-for="Input.Fecha" class="form-label">Fecha</label>
+                            <input asp-for="Input.Fecha" class="form-control" type="date" />
+                        </div>
+                        <div class="col-md-4">
+                            <label asp-for="Input.Ayuda" class="form-label">Ayuda</label>
+                            <input asp-for="Input.Ayuda" class="form-control" />
+                        </div>
+                        <div class="col-md-4">
+                            <label asp-for="Input.IdAutoriza" class="form-label">Id Autoriza</label>
+                            <input asp-for="Input.IdAutoriza" class="form-control" type="number" />
+                        </div>
+                        <div class="col-md-4">
+                            <label asp-for="Input.IdRetira" class="form-label">Id Retira</label>
+                            <input asp-for="Input.IdRetira" class="form-control" type="number" />
+                        </div>
+                        <div class="col-md-4">
+                            <label asp-for="Input.Estado" class="form-label">Estado</label>
+                            <input asp-for="Input.Estado" class="form-control" />
+                        </div>
+                        <div class="col-md-6">
+                            <label asp-for="Input.NombreRegistra" class="form-label">Nombre Registra</label>
+                            <input asp-for="Input.NombreRegistra" class="form-control" />
+                        </div>
+                        <div class="col-md-6">
+                            <label asp-for="Input.Concepto" class="form-label">Concepto</label>
+                            <input asp-for="Input.Concepto" class="form-control" />
+                        </div>
+                    </div>
+
+                    <div class="mt-3">
+                        <button type="submit" class="btn btn-primary">Guardar</button>
+                        @if (Model.Input.Id > 0)
+                        {
+                            <a asp-page="/Global/Salida" class="btn btn-secondary ms-2">Cancelar</a>
+                        }
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">Listado de salidas</div>
+            <div class="card-body p-0">
+                <table class="table table-striped mb-0">
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Número S</th>
+                            <th>Fecha</th>
+                            <th>Autoriza</th>
+                            <th>Retira</th>
+                            <th>Estado</th>
+                            <th>Nombre Registra</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.Salidas)
+                        {
+                            <tr>
+                                <td>@item.Id</td>
+                                <td>@item.NumeroS</td>
+                                <td>@item.Fecha?.ToString("yyyy-MM-dd")</td>
+                                <td>@item.IdAutoriza</td>
+                                <td>@item.IdRetira</td>
+                                <td>@item.Estado</td>
+                                <td>@item.NombreRegistra</td>
+                                <td>
+                                    <a asp-page="/Global/Salida" asp-route-id="@item.Id" class="btn btn-sm btn-outline-primary me-2">Editar</a>
+                                    <form method="post" asp-page-handler="Delete" asp-route-id="@item.Id" class="d-inline" onsubmit="return confirm('¿Eliminar esta salida?');">
+                                        <button type="submit" class="btn btn-sm btn-outline-danger">Eliminar</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

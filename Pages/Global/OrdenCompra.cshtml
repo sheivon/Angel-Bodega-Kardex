@@ -1,0 +1,113 @@
+@page "{id?}"
+@model kardex_Web.Pages.Global.OrdenCompraModel
+@{
+    ViewData["Title"] = "Orden de Compra";
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <h2>Gestión de Ordenes de Compra</h2>
+        @if (!string.IsNullOrEmpty(Model.StatusMessage))
+        {
+            <div class="alert alert-success" role="alert">
+                @Model.StatusMessage
+            </div>
+        }
+    </div>
+</div>
+
+<div class="row mb-4">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header">Crear / Editar orden de compra</div>
+            <div class="card-body">
+                <form method="post" asp-page-handler="Save">
+                    <input asp-for="Input.Id" type="hidden" />
+
+                    <div class="row gy-3">
+                        <div class="col-md-4">
+                            <label asp-for="Input.FechaOrdCompra" class="form-label">Fecha</label>
+                            <input asp-for="Input.FechaOrdCompra" class="form-control" type="date" />
+                        </div>
+                        <div class="col-md-4">
+                            <label asp-for="Input.Numero" class="form-label">Número</label>
+                            <input asp-for="Input.Numero" class="form-control" />
+                        </div>
+                        <div class="col-md-4">
+                            <label asp-for="Input.IdProyecto" class="form-label">Id Proyecto</label>
+                            <input asp-for="Input.IdProyecto" class="form-control" type="number" />
+                        </div>
+                        <div class="col-md-4">
+                            <label asp-for="Input.TipoEntrada" class="form-label">Tipo Entrada</label>
+                            <input asp-for="Input.TipoEntrada" class="form-control" />
+                        </div>
+                        <div class="col-md-4">
+                            <label asp-for="Input.NoProceso" class="form-label">No. Proceso</label>
+                            <input asp-for="Input.NoProceso" class="form-control" />
+                        </div>
+                        <div class="col-md-4">
+                            <label asp-for="Input.Estado" class="form-label">Estado</label>
+                            <input asp-for="Input.Estado" class="form-control" />
+                        </div>
+                        <div class="col-md-12">
+                            <label asp-for="Input.Concepto" class="form-label">Concepto</label>
+                            <textarea asp-for="Input.Concepto" class="form-control" rows="3"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="mt-3">
+                        <button type="submit" class="btn btn-primary">Guardar</button>
+                        @if (Model.Input.Id > 0)
+                        {
+                            <a asp-page="/Global/OrdenCompra" class="btn btn-secondary ms-2">Cancelar</a>
+                        }
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">Listado de ordenes de compra</div>
+            <div class="card-body p-0">
+                <table class="table table-striped mb-0">
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Fecha</th>
+                            <th>Número</th>
+                            <th>Proyecto</th>
+                            <th>Tipo Entrada</th>
+                            <th>No. Proceso</th>
+                            <th>Estado</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.OrdenesCompra)
+                        {
+                            <tr>
+                                <td>@item.Id</td>
+                                <td>@item.FechaOrdCompra?.ToString("yyyy-MM-dd")</td>
+                                <td>@item.Numero</td>
+                                <td>@item.IdProyecto</td>
+                                <td>@item.TipoEntrada</td>
+                                <td>@item.NoProceso</td>
+                                <td>@item.Estado</td>
+                                <td>
+                                    <a asp-page="/Global/OrdenCompra" asp-route-id="@item.Id" class="btn btn-sm btn-outline-primary me-2">Editar</a>
+                                    <form method="post" asp-page-handler="Delete" asp-route-id="@item.Id" class="d-inline" onsubmit="return confirm('¿Eliminar esta orden de compra?');">
+                                        <button type="submit" class="btn btn-sm btn-outline-danger">Eliminar</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

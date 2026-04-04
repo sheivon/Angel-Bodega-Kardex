@@ -1,0 +1,123 @@
+@page "{id?}"
+@model kardex_Web.Pages.Registrar.EntradaModel
+@{
+    ViewData["Title"] = "Entrada";
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <h2>Gestión de Entradas</h2>
+        @if (!string.IsNullOrEmpty(Model.StatusMessage))
+        {
+            <div class="alert alert-success" role="alert">
+                @Model.StatusMessage
+            </div>
+        }
+    </div>
+</div>
+
+<div class="row mb-4">
+    <div class="col-md-10">
+        <div class="card">
+            <div class="card-header">Crear / Editar entrada</div>
+            <div class="card-body">
+                <form method="post" asp-page-handler="Save">
+                    <input asp-for="Input.Id" type="hidden" />
+
+                    <div class="row gy-3">
+                        <div class="col-md-3">
+                            <label asp-for="Input.NumeroE" class="form-label">Número E</label>
+                            <input asp-for="Input.NumeroE" class="form-control" type="number" />
+                        </div>
+                        <div class="col-md-3">
+                            <label asp-for="Input.Fecha" class="form-label">Fecha</label>
+                            <input asp-for="Input.Fecha" class="form-control" type="date" />
+                        </div>
+                        <div class="col-md-3">
+                            <label asp-for="Input.IdOrdCompra" class="form-label">Id Orden Compra</label>
+                            <input asp-for="Input.IdOrdCompra" class="form-control" type="number" />
+                        </div>
+                        <div class="col-md-3">
+                            <label asp-for="Input.IdProveedor" class="form-label">Id Proveedor</label>
+                            <input asp-for="Input.IdProveedor" class="form-control" type="number" />
+                        </div>
+                        <div class="col-md-4">
+                            <label asp-for="Input.FechaFactura" class="form-label">Fecha Factura</label>
+                            <input asp-for="Input.FechaFactura" class="form-control" type="date" />
+                        </div>
+                        <div class="col-md-4">
+                            <label asp-for="Input.NoFactura" class="form-label">No. Factura</label>
+                            <input asp-for="Input.NoFactura" class="form-control" />
+                        </div>
+                        <div class="col-md-4">
+                            <label asp-for="Input.Estado" class="form-label">Estado</label>
+                            <input asp-for="Input.Estado" class="form-control" />
+                        </div>
+                        <div class="col-md-4">
+                            <label asp-for="Input.NoCK" class="form-label">No. CK</label>
+                            <input asp-for="Input.NoCK" class="form-control" />
+                        </div>
+                        <div class="col-md-4">
+                            <label asp-for="Input.NombreAutoriza" class="form-label">Nombre Autoriza</label>
+                            <input asp-for="Input.NombreAutoriza" class="form-control" />
+                        </div>
+                        <div class="col-md-4">
+                            <label asp-for="Input.NombreRegistra" class="form-label">Nombre Registra</label>
+                            <input asp-for="Input.NombreRegistra" class="form-control" />
+                        </div>
+                    </div>
+
+                    <div class="mt-3">
+                        <button type="submit" class="btn btn-primary">Guardar</button>
+                        @if (Model.Input.Id > 0)
+                        {
+                            <a asp-page="/Registrar/Entrada" class="btn btn-secondary ms-2">Cancelar</a>
+                        }
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">Listado de entradas</div>
+            <div class="card-body p-0">
+                <table class="table table-striped mb-0">
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Número E</th>
+                            <th>Fecha</th>
+                            <th>Orden Compra</th>
+                            <th>Proveedor</th>
+                            <th>Estado</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.Entradas)
+                        {
+                            <tr>
+                                <td>@item.Id</td>
+                                <td>@item.NumeroE</td>
+                                <td>@item.Fecha?.ToString("yyyy-MM-dd")</td>
+                                <td>@item.IdOrdCompra</td>
+                                <td>@item.IdProveedor</td>
+                                <td>@item.Estado</td>
+                                <td>
+                                    <a asp-page="/Registrar/Entrada" asp-route-id="@item.Id" class="btn btn-sm btn-outline-primary me-2">Editar</a>
+                                    <form method="post" asp-page-handler="Delete" asp-route-id="@item.Id" class="d-inline" onsubmit="return confirm('¿Eliminar esta entrada?');">
+                                        <button type="submit" class="btn btn-sm btn-outline-danger">Eliminar</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

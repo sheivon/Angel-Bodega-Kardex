@@ -1,0 +1,51 @@
+﻿ 
+<!-- Modal -->
+<div class="modal fade" id="configModal" tabindex="-1" aria-labelledby="configModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h5 class="modal-title" id="configModalLabel">Parámetros de Configuración</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+
+            <div class="modal-body">
+                <form>
+                    <div class="mb-3 row">
+                        <label class="col-sm-4 col-form-label">Nombre de la Alcaldía:</label>
+                        <div class="col-sm-8">
+                            <input id="configNombreAlcaldia" type="text" class="form-control">
+                        </div>
+                    </div>
+
+                    <div class="mb-3 row">
+                        <label class="col-sm-4 col-form-label">IVA %</label>
+                        <div class="col-sm-3">
+                            <input id="configIva" type="number" class="form-control">
+                        </div>
+                    </div>
+
+                    <div class="mb-3 row">
+                        <label class="col-sm-4 col-form-label">Consecutivo Entrada:</label>
+                        <div class="col-sm-4">
+                            <input id="configConsecutivoEntrada" type="text" class="form-control">
+                        </div>
+                    </div>
+
+                    <div class="mb-3 row">
+                        <label class="col-sm-4 col-form-label">Consecutivo Salida:</label>
+                        <div class="col-sm-4">
+                            <input id="configConsecutivoSalida" type="text" class="form-control">
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <div class="modal-footer justify-content-center">
+                <button id="configGuardar" type="button" class="btn btn-primary">Guardar</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+

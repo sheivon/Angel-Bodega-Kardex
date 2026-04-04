@@ -1,0 +1,75 @@
+@page "{id?}"
+@model kardex_Web.Pages.Global.AreaTrabajoModel
+@{
+    ViewData["Title"] = "Área de Trabajo";
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <h2>Gestión de Área de Trabajo</h2>
+        @if (!string.IsNullOrEmpty(Model.StatusMessage))
+        {
+            <div class="alert alert-success" role="alert">
+                @Model.StatusMessage
+            </div>
+        }
+    </div>
+</div>
+
+<div class="row mb-4">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">Crear / Editar área de trabajo</div>
+            <div class="card-body">
+                <form method="post" asp-page-handler="Save">
+                    <input asp-for="Input.Id" type="hidden" />
+
+                    <div class="mb-3">
+                        <label asp-for="Input.Nombre" class="form-label">Nombre</label>
+                        <input asp-for="Input.Nombre" class="form-control" />
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Guardar</button>
+                    @if (Model.Input.Id > 0)
+                    {
+                        <a asp-page="/Global/AreaTrabajo" class="btn btn-secondary ms-2">Cancelar</a>
+                    }
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">Listado de áreas de trabajo</div>
+            <div class="card-body p-0">
+                <table class="table table-striped mb-0">
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Nombre</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.AreasTrabajo)
+                        {
+                            <tr>
+                                <td>@item.Id</td>
+                                <td>@item.Nombre</td>
+                                <td>
+                                    <a asp-page="/Global/AreaTrabajo" asp-route-id="@item.Id" class="btn btn-sm btn-outline-primary me-2">Editar</a>
+                                    <form method="post" asp-page-handler="Delete" asp-route-id="@item.Id" class="d-inline" onsubmit="return confirm('¿Eliminar esta área de trabajo?');">
+                                        <button type="submit" class="btn btn-sm btn-outline-danger">Eliminar</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

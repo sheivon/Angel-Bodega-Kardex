@@ -1,0 +1,200 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - kardex_Web</title>
+    <script type="importmap"></script>
+
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" /> 
+</head>
+
+<body class="d-flex flex-column min-vh-100">
+
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-light bg-white border-bottom box-shadow">
+            <div class="container d-flex justify-content-between">
+
+                <!-- Brand -->
+                <a class="navbar-brand" asp-area="" asp-page="/Index">kardex_Web</a>
+
+                <!-- Toggle -->
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!-- Nav items -->
+                <div class="navbar-collapse collapse justify-content-end">
+                    <ul class="navbar-nav">
+                        <!--GLOBAL SHARED VIEWS-->
+                        <partial name="General" />
+						<partial name="_PeriodoModal" />
+                        <!-- GLOBAL -->
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">
+                                Global
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#configModal">
+                                        General
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#periodoModal">
+                                        Periodo
+                                    </a>
+                                </li>
+                                <li><a class="dropdown-item" asp-page="/Global/Usuario">Usuario</a></li>
+                                <li><a class="dropdown-item" asp-page="/Global/Setup">Setup General</a></li>
+                                <li><a class="dropdown-item" asp-page="/Global/Categoria">Categoría</a></li>
+                                <li><a class="dropdown-item" asp-page="/Global/UnidadMedida">Unidad de Medida</a></li>
+                                <li><a class="dropdown-item" asp-page="/Global/AreaTrabajo">Área de Trabajo</a></li>
+                                <li><a class="dropdown-item" asp-page="/Global/Proveedor">Proveedor</a></li>
+                                <li><a class="dropdown-item" asp-page="/Global/Proyecto">Proyecto</a></li>
+                                <li><a class="dropdown-item" asp-page="/Global/Retira">Retira</a></li>
+                                <li><a class="dropdown-item" asp-page="/Global/Salida">Salida</a></li>
+                                <li><a class="dropdown-item" asp-page="/Global/Autoriza">Autoriza</a></li>
+                                <li><a class="dropdown-item" asp-page="/Global/Retira">Retira</a></li>
+                                <li><a class="dropdown-item" asp-page="/Global/Proyecto">Proyecto</a></li>
+                                <li><a class="dropdown-item" asp-page="/Global/Proveedor">Proveedor</a></li>
+                                <li><a class="dropdown-item" asp-page="/Global/AreasAlcaldia">Areas Alcaldia</a></li>
+                            </ul>
+                        </li>
+
+                        <!-- REGISTRAR --> 
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">
+                                Registrar
+                            </a>
+
+                            <ul class="dropdown-menu">
+
+                                <li>
+                                    <a class="dropdown-item" asp-page="/Global/Producto">
+                                        Producto
+                                    </a>
+                                </li>
+
+                                <li>
+                                    <a class="dropdown-item" asp-page="/Global/OrdenCompra">
+                                        Orden de Compra
+                                    </a>
+                                </li>
+
+                                <li>
+                                    <a class="dropdown-item" asp-page="/Registrar/Entrada">
+                                        Entrada
+                                    </a>
+                                </li>
+
+                                <li>
+                                    <a class="dropdown-item" asp-page="/Registrar/Movimiento">
+                                        Movimiento
+                                    </a>
+                                </li>
+
+                                <li>
+                                    <a class="dropdown-item" asp-page="/Registrar/Salida">
+                                        Salidad
+                                    </a>
+                                </li>
+
+                                <!-- Submenu: Reimpresión --> 
+                                <li class="dropdown-submenu">
+                                    <a class="dropdown-item d-flex justify-content-between align-items-center" href="#">
+                                        Reimpresión
+                                        <span>▶</span>
+                                    </a>
+                                    <ul class="dropdown-menu">
+                                        <li><a class="dropdown-item" asp-page="/Registrar/Reimpresion/Entrada">Entrada</a></li>
+                                        <li><a class="dropdown-item" asp-page="/Registrar/Reimpresion/Salida">Salida</a></li>
+                                    </ul>
+                                </li>
+
+                                <!-- Submenu: Anular -->
+                                <li class="dropdown-submenu">
+                                    <a class="dropdown-item d-flex justify-content-between align-items-center" href="#">
+                                        Anular
+                                        <span>▶</span>
+                                    </a>
+                                    <ul class="dropdown-menu">
+                                        <li><a class="dropdown-item" asp-page="/Registrar/Anular/Entrada">Entrada</a></li>
+                                        <li><a class="dropdown-item" asp-page="/Registrar/Anular/Salida">Salida</a></li>
+                                    </ul>
+                                </li> 
+
+                            </ul>
+                        </li>
+                         
+                        <!-- REPORTES -->
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">
+                                Reportes
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" asp-page="/Reportes/InventarioPorProducto">Inventario Por Producto</a></li>
+                                <li><a class="dropdown-item" asp-page="/Reportes/InventarioPorProyecto">Inventario Por Proyecto</a></li>
+                                <li><a class="dropdown-item" asp-page="/Reportes/InventarioPorOrdenCompra">Inventario Por Orden de Compra</a></li>
+                                <li><a class="dropdown-item" asp-page="/Reportes/InventarioInversionPorArea">Inventario / Inversión Por Area</a></li>
+                                <li><a class="dropdown-item" asp-page="/Reportes/InventarioInversionPorQuienRetira">Inventario / Inversión Por quien Retira</a></li>
+                                <li><a class="dropdown-item" asp-page="/Reportes/InventarioInversionPorQuienAutoriza">Inventario / Inversión Por quien Autoriza</a></li>
+                                <li><a class="dropdown-item" asp-page="/Reportes/BuscarOrigenProducto">Buscar Origen Producto (Entrada / Salida)</a></li>
+                                <li><a class="dropdown-item" asp-page="/Reportes/CompareActivo">Compare de Activo</a></li>
+                                <li><a class="dropdown-item" asp-page="/Reportes/AsignacionActivo">Asignacion de Activo</a></li>
+                                <li><a class="dropdown-item" asp-page="/Reportes/Kardex">Kardex</a></li>
+                                <li><a class="dropdown-item" asp-page="/Reportes/ProductosLista">Productos / Lista</a></li>
+                                <li><a class="dropdown-item" asp-page="/Reportes/OrdenCompraLista">Orden de Compra / Lista</a></li>
+                                <li><a class="dropdown-item" asp-page="/Reportes/ProyectosLista">Proyectos / Lista</a></li>
+                            </ul>
+                        </li>
+
+                        <!-- ACTIVO -->
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">
+                                Activo
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" asp-page="/Activo/Codificar">Codificar</a></li>
+                                <li><a class="dropdown-item" asp-page="/Activo/Reasignar">Reasignar Activo</a></li>
+                                <li><a class="dropdown-item" asp-page="/Activo/Depreciacion">Depreciación</a></li>
+                                <li><a class="dropdown-item" asp-page="/Activo/DarDeBaja">Dar de Baja</a></li>
+                            </ul>
+                        </li>
+
+                        <!-- BUROGRACIAS -->
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-page="/Index">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-page="/Privacy">Privacy</a>
+                        </li>  
+                    </ul>
+                </div>
+
+            </div>
+        </nav>
+    </header>
+
+    <div class="container flex-grow-1">
+        <main role="main" class="px-4 py-3 main-watermark">
+            @RenderBody()
+        </main>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="bg-light text-center text-muted py-3 mt-auto border-top">
+        <div class="container">
+            &copy; 2026 - Kardex Bodega - <a asp-page="/Privacy">Privacy</a>
+        </div>
+    </footer>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

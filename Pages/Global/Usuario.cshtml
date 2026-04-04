@@ -1,0 +1,97 @@
+@page "{id?}"
+@model kardex_Web.Pages.Global.UsuarioModel
+@{
+    ViewData["Title"] = "Usuarios";
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <h2>Gestión de Usuarios</h2>
+        @if (!string.IsNullOrEmpty(Model.StatusMessage))
+        {
+            <div class="alert alert-success" role="alert">
+                @Model.StatusMessage
+            </div>
+        }
+    </div>
+</div>
+
+<div class="row mb-4">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">Crear / Editar usuario</div>
+            <div class="card-body">
+                <form method="post" asp-page-handler="Save">
+                    <input asp-for="Input.Id" type="hidden" />
+                    <div class="mb-3">
+                        <label asp-for="Input.Nombre" class="form-label">Nombre</label>
+                        <input asp-for="Input.Nombre" class="form-control" />
+                    </div>
+                    <div class="mb-3">
+                        <label asp-for="Input.UsuarioNombre" class="form-label">Usuario</label>
+                        <input asp-for="Input.UsuarioNombre" class="form-control" />
+                    </div>
+                    <div class="mb-3">
+                        <label asp-for="Input.Contrasena" class="form-label">Contraseña</label>
+                        <input asp-for="Input.Contrasena" class="form-control" />
+                    </div>
+                    <div class="mb-3">
+                        <label asp-for="Input.Cargo" class="form-label">Cargo</label>
+                        <input asp-for="Input.Cargo" class="form-control" />
+                    </div>
+                    <div class="mb-3">
+                        <label asp-for="Input.LecturaEscritura" class="form-label">Lectura / Escritura</label>
+                        <input asp-for="Input.LecturaEscritura" class="form-control" />
+                    </div>
+                    <div class="d-flex gap-2">
+                        <button type="submit" class="btn btn-primary">Guardar</button>
+                        @if (Model.Input.Id > 0)
+                        {
+                            <a asp-page="/Global/Usuario" class="btn btn-secondary">Cancelar</a>
+                        }
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">Usuarios activos</div>
+            <div class="card-body p-0">
+                <table class="table table-striped mb-0">
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Nombre</th>
+                            <th>Usuario</th>
+                            <th>Cargo</th>
+                            <th>Lectura / Escritura</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var usuario in Model.Usuarios)
+                        {
+                            <tr>
+                                <td>@usuario.Id</td>
+                                <td>@usuario.Nombre</td>
+                                <td>@usuario.UsuarioNombre</td>
+                                <td>@usuario.Cargo</td>
+                                <td>@usuario.LecturaEscritura</td>
+                                <td>
+                                    <a asp-page="/Global/Usuario" asp-route-id="@usuario.Id" class="btn btn-sm btn-outline-primary me-2">Editar</a>
+                                    <form method="post" asp-page-handler="Delete" asp-route-id="@usuario.Id" class="d-inline" onsubmit="return confirm('¿Deseas eliminar este usuario?');">
+                                        <button type="submit" class="btn btn-sm btn-outline-danger">Eliminar</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

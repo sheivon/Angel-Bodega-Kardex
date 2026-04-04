@@ -1,0 +1,97 @@
+@page "{id?}"
+@model kardex_Web.Pages.Global.ProductoModel
+@{
+    ViewData["Title"] = "Productos";
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <h2>Gestión de Productos</h2>
+        @if (!string.IsNullOrEmpty(Model.StatusMessage))
+        {
+            <div class="alert alert-success" role="alert">
+                @Model.StatusMessage
+            </div>
+        }
+    </div>
+</div>
+
+<div class="row mb-4">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header">Crear / Editar producto</div>
+            <div class="card-body">
+                <form method="post" asp-page-handler="Save">
+                    <input asp-for="Input.Id" type="hidden" />
+
+                    <div class="row gy-3">
+                        <div class="col-md-6">
+                            <label asp-for="Input.Codigo" class="form-label">Código</label>
+                            <input asp-for="Input.Codigo" class="form-control" />
+                        </div>
+                        <div class="col-md-6">
+                            <label asp-for="Input.Nombre" class="form-label">Nombre</label>
+                            <input asp-for="Input.Nombre" class="form-control" />
+                        </div>
+                        <div class="col-md-6">
+                            <label asp-for="Input.IdCategoria" class="form-label">Id Categoría</label>
+                            <input asp-for="Input.IdCategoria" class="form-control" type="number" />
+                        </div>
+                        <div class="col-md-6">
+                            <label asp-for="Input.IdUM" class="form-label">Id Unidad de Medida</label>
+                            <input asp-for="Input.IdUM" class="form-control" type="number" />
+                        </div>
+                    </div>
+
+                    <div class="mt-3">
+                        <button type="submit" class="btn btn-primary">Guardar</button>
+                        @if (Model.Input.Id > 0)
+                        {
+                            <a asp-page="/Global/Producto" class="btn btn-secondary ms-2">Cancelar</a>
+                        }
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">Listado de productos</div>
+            <div class="card-body p-0">
+                <table class="table table-striped mb-0">
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Código</th>
+                            <th>Nombre</th>
+                            <th>Id Categoría</th>
+                            <th>Id U.M.</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.Productos)
+                        {
+                            <tr>
+                                <td>@item.Id</td>
+                                <td>@item.Codigo</td>
+                                <td>@item.Nombre</td>
+                                <td>@item.IdCategoria</td>
+                                <td>@item.IdUM</td>
+                                <td>
+                                    <a asp-page="/Global/Producto" asp-route-id="@item.Id" class="btn btn-sm btn-outline-primary me-2">Editar</a>
+                                    <form method="post" asp-page-handler="Delete" asp-route-id="@item.Id" class="d-inline" onsubmit="return confirm('¿Eliminar este producto?');">
+                                        <button type="submit" class="btn btn-sm btn-outline-danger">Eliminar</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
