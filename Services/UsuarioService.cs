@@ -97,6 +97,35 @@ WHERE Id = @id LIMIT 1;";
             };
         }
 
+        public async Task<Usuario?> GetByUsernameAsync(string username)
+        {
+            await using var connection = CreateConnection();
+            await connection.OpenAsync();
+
+            await using var command = connection.CreateCommand();
+            command.CommandText = @"SELECT Id, Nombre, Usuario, Contraseña, Cargo, Lectura_Escritura AS LecturaEscritura, Eliminado
+FROM usuarios
+WHERE Usuario = @usuario LIMIT 1;";
+            command.Parameters.AddWithValue("@usuario", username);
+
+            await using var reader = await command.ExecuteReaderAsync();
+            if (!await reader.ReadAsync())
+            {
+                return null;
+            }
+
+            return new Usuario
+            {
+                Id = reader.GetInt32(reader.GetOrdinal("Id")),
+                Nombre = GetStringSafe(reader, "Nombre"),
+                UsuarioNombre = GetStringSafe(reader, "Usuario"),
+                Contraseña = GetStringSafe(reader, "Contraseña"),
+                Cargo = GetStringSafe(reader, "Cargo"),
+                LecturaEscritura = GetStringSafe(reader, "LecturaEscritura"),
+                Eliminado = reader.GetBoolean(reader.GetOrdinal("Eliminado"))
+            };
+        }
+
         public async Task CreateUsuarioAsync(Usuario usuario)
         {
             await using var connection = CreateConnection();

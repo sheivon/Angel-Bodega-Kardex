@@ -18,7 +18,7 @@
             <div class="container d-flex justify-content-between">
 
                 <!-- Brand -->
-                <a class="navbar-brand" asp-area="" asp-page="/Index">kardex_Web</a>
+                <a class="navbar-brand" asp-area="" asp-page="/Index">kardex Bodega</a>
 
                 <!-- Toggle -->
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse">
@@ -47,8 +47,8 @@
                                         Periodo
                                     </a>
                                 </li>
-                                <li><a class="dropdown-item" asp-page="/Global/Usuario">Usuario</a></li>
                                 <li><a class="dropdown-item" asp-page="/Global/Setup">Setup General</a></li>
+                                <li><a class="dropdown-item" asp-page="/Global/Usuario">Usuario</a></li>
                                 <li><a class="dropdown-item" asp-page="/Global/Categoria">Categoría</a></li>
                                 <li><a class="dropdown-item" asp-page="/Global/Periodo">Periodo</a></li>
                                 <li><a class="dropdown-item" asp-page="/Global/Asignar">Asignar</a></li>
@@ -92,14 +92,14 @@
                                 </li>
 
                                 <li>
-                                    <a class="dropdown-item" asp-page="/Registrar/Movimiento">
-                                        Movimiento
+                                    <a class="dropdown-item" asp-page="/Registrar/Salida">
+                                        Salidad
                                     </a>
                                 </li>
 
                                 <li>
-                                    <a class="dropdown-item" asp-page="/Registrar/Salida">
-                                        Salidad
+                                    <a class="dropdown-item" asp-page="/Registrar/Movimiento">
+                                        Movimiento
                                     </a>
                                 </li>
 
@@ -171,7 +171,19 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-page="/Privacy">Privacy</a>
-                        </li>  
+                        </li>
+                        @if (User.Identity?.IsAuthenticated == true)
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-page="/Logout">Logout</a>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-page="/Login">Login</a>
+                            </li>
+                        }
                     </ul>
                 </div>
 

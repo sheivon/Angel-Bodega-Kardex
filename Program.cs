@@ -3,9 +3,23 @@ var builder = WebApplication.CreateBuilder(args);
 // Load web.config so connection strings can be stored there.
 builder.Configuration.AddXmlFile("web.config", optional: true, reloadOnChange: true);
 
-//kardex_Web.Services.ProductoService._connectionString = builder.Configuration.GetConnectionString("MySqlCon") ?? throw new InvalidOperationException("Connection string 'MySqlCon' not found.");
-// Add services to the container.
-builder.Services.AddRazorPages();
+// Add authentication and authorization.
+builder.Services.AddAuthentication("Cookies")
+    .AddCookie("Cookies", options =>
+    {
+        options.LoginPath = "/Login";
+        options.AccessDeniedPath = "/Login";
+        options.Cookie.Name = "KardexAuth";
+    });
+
+builder.Services.AddRazorPages(options =>
+{
+    options.Conventions.AuthorizeFolder("/");
+    options.Conventions.AllowAnonymousToPage("/Login");
+    options.Conventions.AllowAnonymousToPage("/Logout");
+    options.Conventions.AllowAnonymousToPage("/Privacy");
+    options.Conventions.AllowAnonymousToPage("/Error");
+});
 builder.Services.AddControllers();
 builder.Services.AddTransient<kardex_Web.Services.UsuarioService>();
 builder.Services.AddTransient<kardex_Web.Services.PeriodoService>();
@@ -37,6 +51,7 @@ app.UseHttpsRedirection();
 
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
