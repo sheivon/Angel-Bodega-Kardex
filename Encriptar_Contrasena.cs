@@ -17,7 +17,9 @@ namespace kardex_Web
         0x65, 0x64, 0x76, 0x65, 0x64, 0x65,
         0x76
         };
-
+        
+// Disable the warning.
+#pragma warning disable SYSLIB0060
         public static string Encrypt(string clearText)
         {
             byte[] clearBytes = Encoding.Unicode.GetBytes(clearText);
@@ -41,7 +43,8 @@ namespace kardex_Web
                 }
             }
         }
-
+// Disable the warning.
+#pragma warning disable SYSLIB0060
         public static string Decrypt(string cipherText)
         {
             byte[] cipherBytes = Convert.FromBase64String(cipherText);
