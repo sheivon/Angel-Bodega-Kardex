@@ -17,28 +17,28 @@
 </div>
 
 <div class="row mb-4">
-    <div class="col-md-6">
+    <div class="col-md-12">
         <div class="card">
             <div class="card-header">Crear / Editar proveedor</div>
             <div class="card-body">
                 <form method="post" asp-page-handler="Save">
                     <input asp-for="Input.Id" type="hidden" />
+                    <div class="row">
+                        <div class="col-4 mb-3">
+                            <label asp-for="Input.Nombre" class="form-label">Nombre</label>
+                            <input asp-for="Input.Nombre" class="form-control" />
+                        </div>
 
-                    <div class="mb-3">
-                        <label asp-for="Input.Nombre" class="form-label">Nombre</label>
-                        <input asp-for="Input.Nombre" class="form-control" />
+                        <div class="col-3 mb-3">
+                            <label asp-for="Input.Telefono" class="form-label">Teléfono</label>
+                            <input asp-for="Input.Telefono" class="form-control" type="number" />
+                        </div>
+
+                        <div class="col-5 mb-3">
+                            <label asp-for="Input.Direccion" class="form-label">Dirección</label>
+                            <input asp-for="Input.Direccion" class="form-control" />
+                        </div>
                     </div>
-
-                    <div class="mb-3">
-                        <label asp-for="Input.Telefono" class="form-label">Teléfono</label>
-                        <input asp-for="Input.Telefono" class="form-control" type="number" />
-                    </div>
-
-                    <div class="mb-3">
-                        <label asp-for="Input.Direccion" class="form-label">Dirección</label>
-                        <input asp-for="Input.Direccion" class="form-control" />
-                    </div>
-
                     <button type="submit" class="btn btn-primary">Guardar</button>
                     @if (Model.Input.Id > 0)
                     {
@@ -55,6 +55,9 @@
         <div class="card">
             <div class="card-header">Listado de proveedores</div>
             <div class="card-body p-0">
+                <div class="d-flex justify-content-end p-3">
+                    <button type="button" class="btn btn-outline-primary btn-sm" onclick="printTable('.datatable', 'Imprimir datos')">Imprimir</button>
+                </div>
                 <table class="table table-striped datatable mb-0">
                     <thead>
                         <tr>

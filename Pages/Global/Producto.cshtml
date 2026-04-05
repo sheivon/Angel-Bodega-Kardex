@@ -69,7 +69,10 @@
         <div class="card">
             <div class="card-header">Listado de productos</div>
             <div class="card-body p-0">
-                <table class="table table-striped datatable mb-0">
+                <div class="d-flex justify-content-end p-3">
+                    <button type="button" class="btn btn-outline-primary btn-sm" onclick="printTable('#productoTable', 'Imprimir productos')">Imprimir</button>
+                </div>
+                <table id="productoTable" class="table table-striped datatable mb-0">
                     <thead>
                         <tr>
                             <th>Id</th>
@@ -89,11 +92,13 @@
                                 <td>@item.Nombre</td>
                                 <td>@item.IdCategoria</td>
                                 <td>@item.IdUM</td>
-                                <td class="align-content-center">
-                                    <a asp-page="/Global/Producto" asp-route-id="@item.Id" class="btn btn-sm btn-outline-primary me-2">Editar</a>
-                                    <form method="post" asp-page-handler="Delete" asp-route-id="@item.Id" class="d-inline" onsubmit="return confirm('¿Eliminar este producto?');">
-                                        <button type="submit" class="btn btn-sm btn-outline-danger">Eliminar</button>
-                                    </form>
+                                <td>
+                                    <div class="d-flex content-align-center">
+                                        <a asp-page="/Global/Producto" asp-route-id="@item.Id" class="btn btn-sm btn-outline-primary me-2">Editar</a>
+                                        <form method="post" asp-page-handler="Delete" asp-route-id="@item.Id" class="d-inline" onsubmit="return confirm('¿Eliminar este producto?');">
+                                            <button type="submit" class="btn btn-sm btn-outline-danger">Eliminar</button>
+                                        </form>
+                                    </div>
                                 </td>
                             </tr>
                         }

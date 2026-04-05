@@ -46,8 +46,8 @@ namespace kardex_Web.Services
 
             await using var command = connection.CreateCommand();
             command.CommandText = includeDeleted
-                ? @"SELECT Id, Nombre, Usuario, `Contraseña` AS Contrasena, Cargo, Lectura_Escritura AS LecturaEscritura, Eliminado FROM usuarios ORDER BY Id;"
-                : @"SELECT Id, Nombre, Usuario, `Contraseña` AS Contrasena, Cargo, Lectura_Escritura AS LecturaEscritura, Eliminado FROM usuarios WHERE Eliminado = 0 ORDER BY Id;";
+                ? @"SELECT Id, Nombre, Usuario, Contraseña, Cargo, Lectura_Escritura AS LecturaEscritura, Eliminado FROM usuarios ORDER BY Id;"
+                : @"SELECT Id, Nombre, Usuario, Contraseña, Cargo, Lectura_Escritura AS LecturaEscritura, Eliminado FROM usuarios WHERE Eliminado = 0 ORDER BY Id;";
 
             await using var reader = await command.ExecuteReaderAsync();
             var result = new List<Usuario>();
@@ -58,9 +58,9 @@ namespace kardex_Web.Services
                     Id = reader.GetInt32(reader.GetOrdinal("Id")),
                     Nombre = GetStringSafe(reader, "Nombre"),
                     UsuarioNombre = GetStringSafe(reader, "Usuario"),
-                    Contrasena = GetStringSafe(reader, "Contraseña"),
+                    Contraseña = GetStringSafe(reader, "Contraseña"),
                     Cargo = GetStringSafe(reader, "Cargo"),
-                    LecturaEscritura = GetStringSafe(reader, "Lectura_Escritura"),
+                    LecturaEscritura = GetStringSafe(reader, "LecturaEscritura"),
                     Eliminado = reader.GetBoolean(reader.GetOrdinal("Eliminado"))
                 });
             }
@@ -74,7 +74,7 @@ namespace kardex_Web.Services
             await connection.OpenAsync();
 
             await using var command = connection.CreateCommand();
-            command.CommandText = @"SELECT Id, Nombre, Usuario, `Contraseña` AS Contrasena, Cargo, Lectura_Escritura AS LecturaEscritura, Eliminado
+            command.CommandText = @"SELECT Id, Nombre, Usuario, Contraseña, Cargo, Lectura_Escritura AS LecturaEscritura, Eliminado
 FROM usuarios
 WHERE Id = @id LIMIT 1;";
             command.Parameters.AddWithValue("@id", id);
@@ -90,9 +90,9 @@ WHERE Id = @id LIMIT 1;";
                 Id = reader.GetInt32(reader.GetOrdinal("Id")),
                 Nombre = GetStringSafe(reader, "Nombre"),
                 UsuarioNombre = GetStringSafe(reader, "Usuario"),
-                Contrasena = GetStringSafe(reader, "Contraseña"),
+                Contraseña = GetStringSafe(reader, "Contraseña"),
                 Cargo = GetStringSafe(reader, "Cargo"),
-                LecturaEscritura = GetStringSafe(reader, "Lectura_Escritura"),
+                LecturaEscritura = GetStringSafe(reader, "LecturaEscritura"),
                 Eliminado = reader.GetBoolean(reader.GetOrdinal("Eliminado"))
             };
         }
@@ -108,7 +108,7 @@ WHERE Id = @id LIMIT 1;";
 VALUES (@nombre, @usuario, @contrasena, @cargo, @lecturaEscritura);";
             command.Parameters.AddWithValue("@nombre", usuario.Nombre ?? string.Empty);
             command.Parameters.AddWithValue("@usuario", usuario.UsuarioNombre ?? string.Empty);
-            command.Parameters.AddWithValue("@contrasena", usuario.Contrasena ?? string.Empty);
+            command.Parameters.AddWithValue("@contrasena", usuario.Contraseña ?? string.Empty);
             command.Parameters.AddWithValue("@cargo", usuario.Cargo ?? string.Empty);
             command.Parameters.AddWithValue("@lecturaEscritura", usuario.LecturaEscritura ?? string.Empty);
 
@@ -130,7 +130,7 @@ Lectura_Escritura = @lecturaEscritura
 WHERE Id = @id;";
             command.Parameters.AddWithValue("@nombre", usuario.Nombre ?? string.Empty);
             command.Parameters.AddWithValue("@usuario", usuario.UsuarioNombre ?? string.Empty);
-            command.Parameters.AddWithValue("@contrasena", usuario.Contrasena ?? string.Empty);
+            command.Parameters.AddWithValue("@contrasena", usuario.Contraseña ?? string.Empty);
             command.Parameters.AddWithValue("@cargo", usuario.Cargo ?? string.Empty);
             command.Parameters.AddWithValue("@lecturaEscritura", usuario.LecturaEscritura ?? string.Empty);
             command.Parameters.AddWithValue("@id", usuario.Id);
