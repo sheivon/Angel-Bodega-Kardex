@@ -28,7 +28,7 @@ namespace kardex_Web.Controllers
         <img class='logo' src='/img/Escudo.png' alt='Logo izquierdo' />
         <div class='title-block'>
             <h1>{encodedTitle}</h1>
-            <div class='subtitle'>Documento generado automáticamente</div>
+            <div class='subtitle'>SISTEMA DE CONTROL DE INVENTARIO</div>
         </div>
         <img class='logo' src='/img/Vamos%20Adelante.png' alt='Logo derecho' />
     </header>

@@ -7,6 +7,7 @@
     <script type="importmap"></script>
 
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/lib/fontawesome/css/all.min.css" />
     <link rel="stylesheet" href="~/lib/datatables/css/dataTables.bootstrap5.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" /> 
 </head>
@@ -167,21 +168,21 @@
 
                         <!-- BUROGRACIAS -->
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-page="/Index">Home</a>
+                            <a class="nav-link text-dark" asp-page="/Index"><i class="fa-solid fa-house me-1"></i>Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-page="/Privacy">Privacy</a>
+                            <a class="nav-link text-dark" asp-page="/Privacy"><i class="fa-solid fa-file-lines me-1"></i>Privacy</a>
                         </li>
                         @if (User.Identity?.IsAuthenticated == true)
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-page="/Logout">Logout</a>
+                                <a class="nav-link text-dark" asp-page="/Logout"><i class="fa-solid fa-right-from-bracket me-1"></i>Logout</a>
                             </li>
                         }
                         else
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-page="/Login">Login</a>
+                                <a class="nav-link text-dark" asp-page="/Login"><i class="fa-solid fa-right-to-bracket me-1"></i>Login</a>
                             </li>
                         }
                     </ul>

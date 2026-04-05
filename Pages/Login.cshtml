@@ -8,7 +8,7 @@
     <div class="col-md-5">
         <div class="card mt-5 shadow-sm">
             <div class="card-header text-center">
-                <h2>Iniciar Sesión</h2>
+                <h2><i class="fa-solid fa-user-lock me-2"></i>Iniciar Sesión</h2>
             </div>
             <div class="card-body">
                 @if (!string.IsNullOrEmpty(Model.ErrorMessage))
@@ -26,7 +26,9 @@
                         <input asp-for="Input.Password" class="form-control" type="password" />
                         <span asp-validation-for="Input.Password" class="text-danger"></span>
                     </div>
-                    <button type="submit" class="btn btn-primary w-100">Entrar</button>
+                    <button type="submit" class="btn btn-primary w-100">
+                        <i class="fa-solid fa-right-to-bracket me-1"></i>Entrar
+                    </button>
                 </form>
             </div>
         </div>
