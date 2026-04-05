@@ -43,3 +43,5 @@ node_modules/
 
 # temp build output
 TempBuild/
+tmpbuild2/
+tmpbuild/
