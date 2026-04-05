@@ -62,6 +62,51 @@ function printHtmlContent(html, title) {
     document.body.removeChild(form);
 }
 
+function cloneTableForPrint(table) {
+    var clone = table.cloneNode(true);
+
+    // Find action column by header text or button presence.
+    var actionIndex = -1;
+    var headers = clone.querySelectorAll('thead th');
+    headers.forEach(function (th, index) {
+        var text = th.textContent.trim().toLowerCase();
+        if (text === 'acciones' || text === 'acción' || text === 'accion') {
+            actionIndex = index;
+        }
+    });
+
+    if (actionIndex < 0) {
+        var firstBodyRow = clone.querySelector('tbody tr');
+        if (firstBodyRow) {
+            var cells = firstBodyRow.children;
+            for (var i = 0; i < cells.length; i++) {
+                if (cells[i].querySelector('button, a.btn, .btn, form')) {
+                    actionIndex = i;
+                    break;
+                }
+            }
+        }
+    }
+
+    if (actionIndex >= 0) {
+        clone.querySelectorAll('thead tr, tbody tr, tfoot tr').forEach(function (row) {
+            if (row.children[actionIndex]) {
+                row.removeChild(row.children[actionIndex]);
+            }
+        });
+    }
+
+    clone.querySelectorAll('button, .btn, form').forEach(function (element) {
+        if (element.tagName.toLowerCase() === 'form') {
+            element.remove();
+        } else {
+            element.style.display = 'none';
+        }
+    });
+
+    return clone;
+}
+
 function printTable(selector, title) {
     var table = document.querySelector(selector);
     if (!table) {
@@ -69,7 +114,8 @@ function printTable(selector, title) {
         return;
     }
 
-    printHtmlContent(table.outerHTML, title || 'Imprimir');
+    var printableTable = cloneTableForPrint(table);
+    printHtmlContent(printableTable.outerHTML, title || 'Imprimir');
 }
 
 $(function () {
