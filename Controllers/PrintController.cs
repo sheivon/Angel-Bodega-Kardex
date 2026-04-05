@@ -21,18 +21,18 @@ namespace kardex_Web.Controllers
     <meta charset='utf-8' />
     <meta name='viewport' content='width=device-width, initial-scale=1.0' />
     <title>{encodedTitle}</title>
-    <link rel="stylesheet" href="/css/print.css" />
+    <link rel='stylesheet' href='/css/print.css' />
 </head>
 <body>
-    <header class="print-header">
-        <img class="logo" src="/img/Escudo.png" alt="Logo izquierdo" />
-        <div class="title-block">
+    <header class='print-header'>
+        <img class='logo' src='/img/Escudo.png' alt='Logo izquierdo' />
+        <div class='title-block'>
             <h1>{encodedTitle}</h1>
-            <div class="subtitle">Documento generado automáticamente</div>
+            <div class='subtitle'>Documento generado automáticamente</div>
         </div>
-        <img class="logo" src="/img/Vamos%20Adelante.png" alt="Logo derecho" />
+        <img class='logo' src='/img/Vamos%20Adelante.png' alt='Logo derecho' />
     </header>
-    <div class="table-wrapper">
+    <div class='table-wrapper'>
         {htmlContent}
     </div>
     <script>
