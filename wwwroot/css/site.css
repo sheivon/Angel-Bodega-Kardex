@@ -107,3 +107,82 @@ body {
         opacity: 0.1; /* adjust transparency */
         pointer-events: none; /* allow clicks through */
     }
+
+/* FontAwesome helpers for buttons and list items */
+.btn:not(.btn-close):not(.no-fa)::before {
+    font-family: "Font Awesome 6 Free";
+    font-weight: 900;
+    content: "\f0a4"; /* default button icon */
+    display: inline-block;
+    margin-right: 0.4rem;
+    vertical-align: middle;
+}
+
+.btn.btn-primary:not(.btn-close)::before {
+    content: "\f00c"; /* check */
+}
+
+.btn.btn-secondary:not(.btn-close)::before {
+    content: "\f0c7"; /* save */
+}
+
+.btn.btn-success:not(.btn-close)::before {
+    content: "\f00c"; /* check */
+}
+
+.btn.btn-warning:not(.btn-close)::before {
+    content: "\f071"; /* exclamation */
+}
+
+.btn.btn-danger:not(.btn-close):not(.btn-close)::before,
+.btn.btn-outline-danger:not(.btn-close)::before {
+    content: "\f057"; /* times-circle */
+}
+
+.btn.btn-outline-primary:not(.btn-close)::before,
+.btn.btn-outline-secondary:not(.btn-close)::before,
+.btn.btn-outline-success:not(.btn-close)::before,
+.btn.btn-outline-warning:not(.btn-close)::before {
+    content: "\f05a"; /* info-circle */
+}
+
+.navbar-nav .nav-link::before,
+.dropdown-item::before,
+.list-group-item::before {
+    font-family: "Font Awesome 6 Free";
+    font-weight: 900;
+    content: "\f0da"; /* chevron-right */
+    display: inline-block;
+    width: 1em;
+    margin-right: 0.35rem;
+    opacity: 0.75;
+}
+
+.navbar-nav .nav-link::before {
+    content: "\f105"; /* arrow-right */
+}
+
+.dropdown-item::before,
+.list-group-item::before {
+    content: "\f054"; /* angle-right */
+}
+
+.dropdown-item,
+.navbar-nav .nav-link {
+    white-space: nowrap;
+}
+
+/* Avoid icon when button already defines its own markup icon */
+.btn > .fa,
+.btn > .fas,
+.btn > .far,
+.btn > .fab {
+    margin-right: 0.35rem;
+}
+
+.btn > .fa:first-child,
+.btn > .fas:first-child,
+.btn > .far:first-child,
+.btn > .fab:first-child {
+    margin-right: 0.4rem;
+}
