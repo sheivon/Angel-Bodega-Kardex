@@ -60,7 +60,7 @@
         <div class="card">
             <div class="card-header d-flex justify-content-between align-items-center">
                 <span>Listado de retira</span>
-                <button type="button" class="btn btn-outline-primary btn-sm" onclick="printTable('.datatable', 'Imprimir datos')">Imprimir</button>
+                <button type="button" class="btn btn-outline-primary btn-sm" onclick="printTable('.datatable', 'Imprimir datos')"><i class="fa-solid fa-print me-1"></i>Imprimir</button>
             </div>
             <div class="card-body p-0">
                 <table class="table table-striped datatable mb-0">
@@ -85,9 +85,9 @@
                                 <td>@item.AyudaSocial</td>
                                 <td>
                                     <div class="d-flex content-align-center"> 
-                                        <a asp-page="/Global/Retira" asp-route-id="@item.Id" class="btn btn-sm btn-outline-primary me-2">Editar</a>
+                                        <a asp-page="/Global/Retira" asp-route-id="@item.Id" class="btn btn-sm btn-outline-primary me-2"><i class="fa-solid fa-pencil me-1"></i>Editar</a>
                                         <form method="post" asp-page-handler="Delete" asp-route-id="@item.Id" class="d-inline" onsubmit="return confirm('¿Eliminar este registro?');">
-                                            <button type="submit" class="btn btn-sm btn-outline-danger">Eliminar</button>
+                                            <button type="submit" class="btn btn-sm btn-outline-danger"><i class="fa-solid fa-trash me-1"></i>Eliminar</button>
                                         </form>
                                     </div>
                                 </td>

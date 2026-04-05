@@ -108,44 +108,7 @@ body {
         pointer-events: none; /* allow clicks through */
     }
 
-/* FontAwesome helpers for buttons and list items */
-.btn:not(.btn-close):not(.no-fa)::before {
-    font-family: "Font Awesome 6 Free";
-    font-weight: 900;
-    content: "\f0a4"; /* default button icon */
-    display: inline-block;
-    margin-right: 0.4rem;
-    vertical-align: middle;
-}
-
-.btn.btn-primary:not(.btn-close)::before {
-    content: "\f00c"; /* check */
-}
-
-.btn.btn-secondary:not(.btn-close)::before {
-    content: "\f0c7"; /* save */
-}
-
-.btn.btn-success:not(.btn-close)::before {
-    content: "\f00c"; /* check */
-}
-
-.btn.btn-warning:not(.btn-close)::before {
-    content: "\f071"; /* exclamation */
-}
-
-.btn.btn-danger:not(.btn-close):not(.btn-close)::before,
-.btn.btn-outline-danger:not(.btn-close)::before {
-    content: "\f057"; /* times-circle */
-}
-
-.btn.btn-outline-primary:not(.btn-close)::before,
-.btn.btn-outline-secondary:not(.btn-close)::before,
-.btn.btn-outline-success:not(.btn-close)::before,
-.btn.btn-outline-warning:not(.btn-close)::before {
-    content: "\f05a"; /* info-circle */
-}
-
+/* FontAwesome helpers for list items */
 .navbar-nav .nav-link::before,
 .dropdown-item::before,
 .list-group-item::before {
