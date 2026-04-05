@@ -37,7 +37,7 @@ namespace kardex_Web.Pages
             }
 
             var user = await _usuarioService.GetByUsernameAsync(Input.UserName ?? string.Empty);
-            if (user is null || user.Eliminado || string.IsNullOrWhiteSpace(user.Contraseña) || user.Contraseña != Input.Password)
+            if (user is null || user.Eliminado || !IsValidPassword(user.Contraseña, Input.Password))
             {
                 ErrorMessage = "Usuario o contraseña incorrectos.";
                 return Page();
@@ -76,6 +76,24 @@ namespace kardex_Web.Pages
             public string? Password { get; init; }
 
             public bool RememberMe { get; init; }
+        }
+
+        private static bool IsValidPassword(string? storedPassword, string? enteredPassword)
+        {
+            if (string.IsNullOrWhiteSpace(storedPassword) || string.IsNullOrWhiteSpace(enteredPassword))
+            {
+                return false;
+            }
+
+            try
+            {
+                var decrypted = Encriptar_Contrasena.Decrypt(storedPassword);
+                return decrypted == enteredPassword;
+            }
+            catch
+            {
+                return storedPassword == enteredPassword;
+            }
         }
     }
 }

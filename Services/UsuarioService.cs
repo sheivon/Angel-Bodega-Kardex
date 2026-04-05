@@ -105,7 +105,7 @@ WHERE Id = @id LIMIT 1;";
             await using var command = connection.CreateCommand();
             command.CommandText = @"SELECT Id, Nombre, Usuario, Contraseña, Cargo, Lectura_Escritura AS LecturaEscritura, Eliminado
 FROM usuarios
-WHERE Usuario = @usuario LIMIT 1;";
+WHERE Usuario = @usuario AND Eliminado = 0 LIMIT 1;";
             command.Parameters.AddWithValue("@usuario", username);
 
             await using var reader = await command.ExecuteReaderAsync();
