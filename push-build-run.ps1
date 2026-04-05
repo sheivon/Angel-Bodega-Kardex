@@ -11,7 +11,8 @@ param(
     [string]$Branch = 'main',
     [string]$Solution = 'kardex-Web.sln',
     [string]$Project = 'kardex-Web.csproj',
-    [string]$CommitMessage = 'PUSH'
+    [string]$CommitMessage = 'PUSH',
+    [switch]$Watch
 )
 
 Set-StrictMode -Version Latest
@@ -40,7 +41,14 @@ Write-Host "=== Build solution $Solution ===" -ForegroundColor Cyan
 dotnet build $Solution
 if ($LASTEXITCODE -ne 0) { Fail "Build failed with exit code $LASTEXITCODE." }
 
-Write-Host "=== Run project $Project ===" -ForegroundColor Cyan
-Write-Host "Press Ctrl+C to stop the running app..." -ForegroundColor Yellow
-dotnet run --project $Project
-if ($LASTEXITCODE -ne 0) { Fail "Run failed with exit code $LASTEXITCODE." }
+if ($Watch) {
+    Write-Host "=== Run project in watch mode ===" -ForegroundColor Cyan
+    Write-Host "Press Ctrl+C to stop dotnet watch..." -ForegroundColor Yellow
+    dotnet watch --project $Project run
+    if ($LASTEXITCODE -ne 0) { Fail "Watch run failed with exit code $LASTEXITCODE." }
+} else {
+    Write-Host "=== Run project $Project ===" -ForegroundColor Cyan
+    Write-Host "Press Ctrl+C to stop the running app..." -ForegroundColor Yellow
+    dotnet run --project $Project
+    if ($LASTEXITCODE -ne 0) { Fail "Run failed with exit code $LASTEXITCODE." }
+}
